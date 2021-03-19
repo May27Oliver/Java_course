@@ -3,45 +3,45 @@ import java.util.Scanner;
 
 public class GuesNumber {
 	public static void main(String[] args) {
-		//1. ²£¥ÍÀH¾÷¼Æ¦r
+		//1. ç”¢ç”Ÿéš¨æ©Ÿæ•¸å­—
 		int rightNum = (int) (Math.random()*100);
-		System.out.println("§A¬İ¤£¨ì§A¬İ¤£¨ì¥¿½T¼Æ¦r¬O¡G" + rightNum);
-		System.out.println("½Ğ²q²q1~99ªº¾ã¼Æ¡Aµ¹§A5¦¸µªÃD¾÷·|¡G");
-		//2. Åı¨Ï¥ÎªÌ¯à¿é¤J¼Æ¦r
+		System.out.println("ä½ çœ‹ä¸åˆ°ä½ çœ‹ä¸åˆ°æ­£ç¢ºæ•¸å­—æ˜¯ï¼š" + rightNum);
+		System.out.println("è«‹çŒœçŒœ1~99çš„æ•´æ•¸ï¼Œçµ¦ä½ 5æ¬¡ç­”é¡Œæ©Ÿæœƒï¼š");
+		//2. è®“ä½¿ç”¨è€…èƒ½è¼¸å…¥æ•¸å­—
 		Scanner inputScanner  = new Scanner(System.in);
-		int maxNum = 99;    //³]©w³Ì¤j­Èªì©l­È
-		int minNum = 0;       //³]©w³Ì¤p­Èªì©l­È
-		int times = 0;			//³]©wªì©l°é¼Æ
-		
-		while ( true ) { //3. ¶]­Ó°j°é¡A¦pªG¨Ï¥ÎªÌµª¿ù­«½Æ¶i¤J°j°é¡C
+		int maxNum = 99;    //è¨­å®šæœ€å¤§å€¼åˆå§‹å€¼
+		int minNum = 0;       //è¨­å®šæœ€å°å€¼åˆå§‹å€¼
+		int times = 0;			//è¨­å®šåˆå§‹åœˆæ•¸
+
+		while ( true ) { //3. è·‘å€‹è¿´åœˆï¼Œå¦‚æœä½¿ç”¨è€…ç­”éŒ¯é‡è¤‡é€²å…¥è¿´åœˆã€‚
 			if ( times > 7) {
-				System.out.println("µªÃD¦¸¼Æ¨ì¹F¤W­­¡I");
+				System.out.println("ç­”é¡Œæ¬¡æ•¸åˆ°é”ä¸Šé™ï¼");
 				break;
 			}else if( (maxNum - minNum ) < 3) {
-				System.out.println("¥i¿ïµª®×¥u³Ñ¥¿½Tµª®×¡A¹CÀ¸¤¤¤î....");
+				System.out.println("å¯é¸ç­”æ¡ˆåªå‰©æ­£ç¢ºç­”æ¡ˆï¼ŒéŠæˆ²ä¸­æ­¢....");
 				break;
 			}
 			try {
 				int input = inputScanner.nextInt();
-				if ( input == rightNum ) { //µª¹ï²æÂ÷°j°é
-					System.out.println("µª¹ï¤F¡I");
+				if ( input == rightNum ) { //ç­”å°è„«é›¢è¿´åœˆ
+					System.out.println("ç­”å°äº†ï¼");
 					break;
 				}
-				else if ( input > minNum && input < maxNum ){ //¥ı¬İ¬İ¨Ï¥ÎªÌ¿é¤Jªº¬O§_¦b½d³ò¤º
-					if ( rightNum > input ) 
+				else if ( input > minNum && input < maxNum ){ //å…ˆçœ‹çœ‹ä½¿ç”¨è€…è¼¸å…¥çš„æ˜¯å¦åœ¨ç¯„åœå…§
+					if ( rightNum > input )
 						minNum = input + 1;
-					else if ( rightNum < input ) 
-						 maxNum = input - 1;
+					else if ( rightNum < input )
+						maxNum = input - 1;
 				}else {
-					System.out.println("½Ğ¿é¤J¥¿½T½d³ò¤ºªº¼Æ¦r¡I");
+					System.out.println("è«‹è¼¸å…¥æ­£ç¢ºç¯„åœå…§çš„æ•¸å­—ï¼");
 				}
-				System.out.println( "½Ğ¿é¤J ¤¶©ó ( " + minNum + " ~ " + maxNum + " )¤§¶¡ªº¾ã¼Æ");
+				System.out.println( "è«‹è¼¸å…¥ ä»‹æ–¼ ( " + minNum + " ~ " + maxNum + " )ä¹‹é–“çš„æ•´æ•¸");
 				++times;
 			}catch( InputMismatchException ex) {
-				System.out.printf("½Ğ¿é¤J¾ã¼Æ¼Æ¦r¡I" , inputScanner .next());
+				System.out.printf("è«‹è¼¸å…¥æ•´æ•¸æ•¸å­—ï¼" , inputScanner .next());
 			}
 		}
-		System.out.println("µª®×¬O" + rightNum);
+		System.out.println("ç­”æ¡ˆæ˜¯" + rightNum);
 		inputScanner.close();
 	}
 }

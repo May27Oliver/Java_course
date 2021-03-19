@@ -5,6 +5,10 @@ public class Array {
 		int[] scores2 = scores1;
 		scores2[0] = 99;
 		System.out.println(scores1[0]);
+
+		int[] x = new int[7];//宣告長度為7個空間的陣列
+
+
 	}
 
 }
