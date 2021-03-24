@@ -2,98 +2,99 @@ import java.util.List;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 public class CovidIsolated {
-	public static void main(String[] args) {
-		// ²£¥Í¤@²Õ¤½¥Á
-		GenerateID camp = new GenerateID();
-		int[] citizens = camp.generate(camp.citizens);
-		int[] connection = new ShuffleTheArray().shuffleFactory(camp.generate(camp.connection));
-		System.out.print("[");
-		for (int x = 0; x < citizens.length; ++x) {
-			System.out.print(citizens[x]);
-			System.out.print(",");
-		}
-		System.out.println("]");
-		System.out.print("[");
-		for (int x = 0; x < connection.length; ++x) {
-			System.out.print(connection[x]);
-			System.out.print(",");
-		}
-		System.out.println("]");
-		new showIsolatedRelation().showIsolatedList(citizens, connection);
-	}
+    public static void main(String[] args){
+        //ç”¢ç”Ÿä¸€çµ„å…¬æ°‘
+        GenerateID camp = new GenerateID();
+        int[] citizens = camp.generate(camp.citizens);
+        int[] connection = new ShuffleTheArray().shuffleFactory(camp.generate(camp.connection));
+        System.out.print("å…¬æ°‘é™£åˆ—ï¼š[");
+        for(int x = 0 ; x < citizens.length ; ++x) {
+        	System.out.print(citizens[x]);
+        	if(x < citizens.length-1) {
+        		System.out.print(",");
+        	}
+        }
+        System.out.println("]");
+        System.out.print("é—œä¿‚é™£åˆ—ï¼š[");
+        for(int x = 0 ; x < connection.length ; ++x) {
+        	System.out.print(connection[x]);
+        	if(x < connection.length-1) {
+        		System.out.print(",");
+        	}
+        }
+        System.out.println("]");
+        new showIsolatedRelation().showIsolatedList(citizens,connection);
+    }
 }
-
-//¶°¤¤ÀË¬Ì¤½¥Áªºclass»P¨äÁpÃ´Ãö«Y
-class GenerateID {
-	int[] citizens = new int[15];
-	int[] connection = new int[15];
-
-	static int[] generate(int[] a) {
-		for (int i = 0; i < a.length; i++) {
-			a[i] = i + 1;
-		}
-		return a;
-	}
+//é›†ä¸­æª¢ç–«å…¬æ°‘çš„classèˆ‡å…¶è¯ç¹«é—œä¿‚
+class GenerateID{
+    int[] citizens =  new int[15];
+    int[] connection = new int[15];
+    static int[] generate(int[] a){
+        for ( int i = 0; i<a.length; i++){
+            a[i] = i + 1 ;
+        }
+        return a;
+    }
 }
-
-//array¦bjava¤¤¦³int[]¡Aarray¡AList¤TºØ¼Ò¦¡
-//¬d¸ß³o¨Ç¤½¥Á¤§¶¡ªºÁpÃ´Ãö«Y
+//arrayåœ¨javaä¸­æœ‰int[]ï¼Œarrayï¼ŒListä¸‰ç¨®æ¨¡å¼
+//æŸ¥è©¢é€™äº›å…¬æ°‘ä¹‹é–“çš„è¯ç¹«é—œä¿‚
 class ShuffleTheArray {
-	static int[] shuffleFactory(int[] a) {
-		int j, temp;
-		for (int i = 0; i < a.length; ++i) {
-			j = (int) (Math.random() * 15);
-			temp = a[i];
-			a[i] = a[j];
-			a[j] = temp;
-		}
-		return a;
-	}
+    static int[] shuffleFactory(int[] a){
+        int j, temp;
+    	for(int i = 0 ; i < a.length ; ++i) {
+        	j=(int)(Math.random()*15);
+        	temp = a[i];
+        	a[i] = a[j];
+        	a[j] = temp;
+        }
+    	return a;
+    }
 }
 
-class showIsolatedRelation {
-	static int[] showIsolatedList(int[] a, int[] b) {
+class showIsolatedRelation{
+	static int[] showIsolatedList(int[] a,int[] b) {
 		int[] isolatedList = new int[15];
-		// §ä¥X±a­ìªÌ
-		int i = (int) Math.random() * 15, // ±a­ìªÌ¦bcitizen°}¦Cªºindex
-				origin, // ±a­ìªÌ½s¸¹
-				j = 0;// ¹jÂ÷°}¦C¯Á¤Þ
-
-		boolean endGame = false;// ¤¤¤î¬d§äÃö«Y
+		//æ‰¾å‡ºå¸¶åŽŸè€…
+		int i = (int)Math.random()*15,//å¸¶åŽŸè€…åœ¨citizené™£åˆ—çš„index
+			origin, //å¸¶åŽŸè€…ç·¨è™Ÿ
+			j = 0;//éš”é›¢é™£åˆ—ç´¢å¼•
+		boolean endGame = false;//ä¸­æ­¢æŸ¥æ‰¾é—œä¿‚
 		origin = a[i];
-		isolatedList[j] = origin;// ±N±a­ìªÌ¦C¤J¹jÂ÷²M³æ
+		isolatedList[j] = origin;//å°‡å¸¶åŽŸè€…åˆ—å…¥éš”é›¢æ¸…å–®
 		++j;
-
-		while (j < 15) {// ¶}©l§ä´M±a­ìªÌ
+		while (j < 15) {//é–‹å§‹æ‰¾å°‹å¸¶åŽŸè€…
 			origin = b[i];
 			isolatedList[j] = origin;
-			for (int x = 0; x < a.length; ++x) {
-				if (a[x] == origin) {
+			for(int x = 0; x < a.length ; ++x){
+				if(a[x] == origin) {
 					i = x;
 					break;
 				}
-			} // §ä´M±a­ìªÌ¦b¤½¥Á°}¦Cªºindex
-
+			}//æ‰¾å°‹å¸¶åŽŸè€…åœ¨å…¬æ°‘é™£åˆ—çš„index
 			++j;
-			for (int x = 0; x < isolatedList.length; ++x) {// ¬d¬Ý¶°¤¤Àç¸Ì¦³¨S¦³­«½Æªº¤½¥Á¡A¦pªG¦³¤¤¤î°j°é
-				if (isolatedList[x] == b[i]) {
+			for(int x = 0; x < isolatedList.length; ++x) {//æŸ¥çœ‹é›†ä¸­ç‡Ÿè£¡æœ‰æ²’æœ‰é‡è¤‡çš„å…¬æ°‘ï¼Œå¦‚æžœæœ‰ä¸­æ­¢è¿´åœˆ
+				if(isolatedList[x] == b[i] ) {
 					endGame = true;
 					break;
 				}
 			}
-
-			if (endGame) {
+			if(endGame) {
 				break;
 			}
 		}
-		for (int x = 0; x < isolatedList.length; ++x) {
-			if (isolatedList[x] == 0) {
+		System.out.print("éš”é›¢æ¸…å–®ï¼š[");
+		for(int x = 0;x < isolatedList.length;++x){
+			if(isolatedList[x] == 0) {
 				break;
 			}
-			System.out.println(isolatedList[x]);
+			System.out.print(isolatedList[x]);
+			if(x < isolatedList.length-1) {
+				System.out.print(",");
+			}
 		}
-		return isolatedList;
+		System.out.println("]");
+		return isolatedList; 
 	}
 }
