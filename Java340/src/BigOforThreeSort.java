@@ -1,5 +1,6 @@
-import java.util.ArrayList;
 import java.util.Arrays;
+
+// å°åœ°æ–¹, ç·¨ç¢¼ä¸€èˆ¬æ˜¯ç”¨ UTF-8ï¼Œ Eclipse ä¸­éœ€è¦è¨­å®šä¸€ä¸‹
 
 public class BigOforThreeSort {
 	public static void main(String[] args) {
@@ -11,120 +12,115 @@ public class BigOforThreeSort {
 }
 
 /*
- ArrayList 
- ¼W¡Gadd(index,element); addAll(index,Collection);
- §R¡Gremove(index);
- §ï¡Gset(index,element);
- ¬d¡Gget(index); subList(from,to); listIterator();
+ ArrayList
+ å¢ï¼šadd(index,element); addAll(index,Collection);
+ åˆªï¼šremove(index);
+ æ”¹ï¼šset(index,element);
+ æŸ¥ï¼šget(index); subList(from,to); listIterator();
  */
 
-//²£¥Í°}¦C
-class generateArray{
+//ç”¢ç”Ÿé™£åˆ—
+// å°åœ°æ–¹, Java çš„æ…£ä¾‹å‘½å class æ˜¯é¦–å­—å¤§å¯«é§å³°å¼å‘½å
+class GenerateArray{
 	int[] arrayUWant(int n) {
 		int[] a= new int[n];
 		for(int i = 0 ; i < a.length ; i++) {
 			a[i] = ((int) (Math.random()*n));
-			if(i==a.length-1) 
-				break;
+			// ä¸‹é¢é€™å…©è¡Œå¯ä»¥ä¸ç”¨ï¼Œå› ç‚º for è¿´åœˆå·²ç¶“æœƒæª¢æŸ¥ i < a.length
+			// if(i==a.length-1)
+			// 	break;
 		}
 		return a;
 	}
 }
 
-//´ú¸Õ¤èªk
+//æ¸¬è©¦æ–¹æ³•
 class TestTime{
-	//²@¬í´ú³t
-	void beginMsTest(int[] a){
-		//¶}©l´ú¶qºtºâªk®É¶¡¡G
-		System.out.printf("\t³æ¦ì¡]%s¡^%n","ms");
-		System.out.printf("\t%s\t","Size");
-		System.out.printf("\t%s\t","Bubble sort");
-		System.out.printf("\t%s\t","Selection sort");
-		System.out.printf("\t%s\t","Insertion sort");
-		System.out.printf("\t%s\t\n","Arrays.sort ");
 
+	private final Sort[] sortMethods = new Sort[]{new BubbleSort(), new SelectSort(), new InsertSort(), new ArraySort()};
+
+	//æ¯«ç§’æ¸¬é€Ÿ
+	void beginMsTest(int[] a){
+		//é–‹å§‹æ¸¬é‡æ¼”ç®—æ³•æ™‚é–“ï¼š
+		System.out.printf("%10s", "å–®ä½ï¼ˆmsï¼‰\n");
+		System.out.printf("%10s%20s%20s%20s%20s\n", "Size", "Bubble sort", "Selection sort", "Insertion sort", "Arrays.sort");
+
+		// for (int i = 0; i < a.length ; i++) {
+		// 	int[] arr = new GenerateArray().arrayUWant(a[i]);
+		// 	msTest(arr);
+		// }
+
+		// GenerateArray å¯ä»¥ new ä¸€æ¬¡å°±å¥½ï¼ŒåŸæœ¬çš„å¯«æ³•æœƒé‡è¤‡å»ºç«‹å¤šå€‹
+		// ä½†å› ç‚ºå‘¼å«çš„ instance method æ²’æœ‰ç”¨åˆ° member field æ‰€ä»¥ä¸ç”¨æ¯æ¬¡éƒ½å»ºç«‹æ–°çš„,
+		// æˆ–è€…å®£å‘Šæˆ static method ç”¨ä¹Ÿå¯ä»¥
+		GenerateArray generateArray = new GenerateArray();
 		for (int i = 0; i < a.length ; i++) {
-			int[] arr = new generateArray().arrayUWant(a[i]);
-			msTest(arr);
+			int[] arr = generateArray.arrayUWant(a[i]);
+			System.out.printf("%10d", arr.length);
+			for (Sort sortMethod : sortMethods) {
+				msTest(arr, sortMethod);
+			}
+			System.out.println();
 		}
 	}
 
 	void beginNsTest(int[] a){
-		//¶}©l´ú¶qºtºâªk®É¶¡¡G
-		System.out.printf("\t³æ¦ì¡]%s¡^%n","ns");
-		System.out.printf("\t%s\t","Size");
-		System.out.printf("\t%s\t","Bubble sort");
-		System.out.printf("\t%s\t","Selection sort");
-		System.out.printf("\t%s\t","Insertion sort");
-		System.out.printf("\t%s\t\n","Arrays.sort ");
+		//é–‹å§‹æ¸¬é‡æ¼”ç®—æ³•æ™‚é–“ï¼š
+		System.out.printf("%10s", "å–®ä½ï¼ˆnsï¼‰\n");
+		System.out.printf("%10s%20s%20s%20s%20s\n", "Size", "Bubble sort", "Selection sort", "Insertion sort", "Arrays.sort");
 
+		// for (int i = 0; i < a.length ; i++) {
+		// 	int[] arr = new GenerateArray().arrayUWant(a[i]);
+		// 	nsTest(arr);
+		// }
+
+		// ç†ç”±åŒ beginMsTest
+		GenerateArray generateArray = new GenerateArray();
 		for (int i = 0; i < a.length ; i++) {
-			int[] arr = new generateArray().arrayUWant(a[i]);
-			nsTest(arr);
+			int[] arr = generateArray.arrayUWant(a[i]);
+			System.out.printf("%10d",arr.length);
+			for (Sort sortMethod : sortMethods) {
+				nsTest(arr, sortMethod);
+			}
+			System.out.println();
 		}
 	}
 
-	void msTest(int[] arr) {
-		//°}¦C¤j¤p
-		System.out.printf("\t%d\t\t",arr.length);
-		//Bubble Sort
+	void msTest(int[] arr, Sort sortMethod) {
+		//é™£åˆ—å¤§å°
 		long startTime = System.currentTimeMillis();
-		new Sort().BubbleSort(arr);
+		sortMethod.sort(arr);
 		long endTime = System.currentTimeMillis();
-		System.out.printf("%d\t\t\t\t",endTime - startTime);
-		
-		//Select Sort
-		long startSelectTime = System.currentTimeMillis();
-		new Sort().SelectSort(arr);
-		long endSelectTime = System.currentTimeMillis();
-		System.out.printf("\t%d\t\t\t",endSelectTime - startSelectTime);
-		
-		//Insert sort
-		long startInsertTime = System.currentTimeMillis();
-		new Sort().InsertSort(arr);
-		long endInsertTime = System.currentTimeMillis();
-		System.out.printf("\t%d\t\t\t\t",endInsertTime - startInsertTime);
-
-		//Arrays sort
-		long startArraysTime = System.currentTimeMillis();
-		Arrays.sort(arr);
-		long endArraysTime = System.currentTimeMillis();
-		System.out.printf("\t%d\t\n", endArraysTime - startArraysTime);
+		System.out.printf("%20d",endTime - startTime);
 	}
-	//©`¬í´ú³t
-	void nsTest(int[] arr) {
-		//°}¦C¤j¤p
-		System.out.printf("\t%d\t",arr.length);
-		//Bubble Sort
-		long startTime = System.nanoTime(); //Àò¨ú¶}©l®É¶¡
-		new Sort().BubbleSort(arr);
-		long endTime = System.nanoTime(); //Àò¨úµ²§ô®É¶¡
-		System.out.printf("\t%d\t\t",endTime - startTime);
 
-		//Select Sort
-		long startSelectTime = System.nanoTime(); //Àò¨ú¶}©l®É¶¡
-		new Sort().SelectSort(arr);
-		long endSelectTime = System.nanoTime(); //Àò¨úµ²§ô®É¶¡
-		System.out.printf("\t%d\t\t",endSelectTime - startSelectTime);
-
-		//Insert sort
-		long startInsertTime = System.nanoTime(); //Àò¨ú¶}©l®É¶¡
-		new Sort().InsertSort(arr);
-		long endInsertTime = System.nanoTime(); //Àò¨úµ²§ô®É¶¡
-		System.out.printf("\t\t%d\t\t",endInsertTime - startInsertTime);
-
-		//Arrays sort
-		long startArraysTime = System.nanoTime(); //Àò¨ú¶}©l®É¶¡
-		Arrays.sort(arr);
-		long endArraysTime = System.nanoTime(); //Àò¨úµ²§ô®É¶¡
-		System.out.printf("\t\t%d\t\n",endArraysTime - startArraysTime);
+	//å¥ˆç§’æ¸¬é€Ÿ
+	void nsTest(int[] arr, Sort sortMethod) {
+		//é™£åˆ—å¤§å°
+		long startTime = System.nanoTime(); //ç²å–é–‹å§‹æ™‚é–“
+		sortMethod.sort(arr);
+		long endTime = System.nanoTime(); //ç²å–çµæŸæ™‚é–“
+		System.out.printf("%20d",endTime - startTime);
 	}
 }
 
-//¤TºØ±Æ§Çªk
-class Sort {
-	//	®ğªw±Æ§Çªk
-	int[] BubbleSort (int[] arr) {
+//ä¸‰ç¨®æ’åºæ³•
+interface Sort {
+	int[] sort(int[] arr);
+}
+
+class ArraySort implements Sort {
+	public int[] sort(int[] arr) {
+		Arrays.sort(arr);
+		return arr;
+	}
+}
+class BubbleSort implements Sort {
+	//	æ°£æ³¡æ’åºæ³•
+	// å°åœ°æ–¹, Java æ…£ä¾‹ instance method å‘½åç‚ºé¦–å­—å°å¯«é§å³°å¼,
+	// æ‰€ä»¥åŸæœ¬ int[] BubbleSort (int[] arr) é€šå¸¸å‘½åæ˜¯ int[] buubleSort(int[] arr)
+	// ä¸‹é¢ç›¸åŒå°±ä¸é‡è¤‡å¯«
+	public int[] sort (int[] arr) {
 			int n = arr.length;
 			int temp;
 			for (int i = 0 ; i < n ;i++) {
@@ -138,20 +134,24 @@ class Sort {
 			}
 			return arr;
 	}
-	
-	//	¿ï¾Ü±Æ§Çªk
-	int[] SelectSort( int[] arr) {
-		int min;
+}
+
+class SelectSort implements Sort {
+	//	é¸æ“‡æ’åºæ³•
+	// int[] SelectSort( int[] arr) {
+	public int[] sort( int[] arr) {
+		// min æ²’ç”¨åˆ°?
+		// int min;
 		for( int i = 0; i < arr.length ; i++) {
-			int m = i;//°²³]³Ì¤p­È¯Á¤Ş¬Oi
+			int m = i;//å‡è¨­æœ€å°å€¼ç´¢å¼•æ˜¯i
 			int temp;
 			for (int j = i + 1; j < arr.length ; j++) {
-				//§ä´M³Ì¤p­È
+				//æ‰¾å°‹æœ€å°å€¼
 				if(arr[j] < arr[m]) {
 					m = j;
-				} 
+				}
 			}
-			//¦pªG³Ì¤pªºindex¦³ÅÜ«h§ó´«¦ì¸m
+			//å¦‚æœæœ€å°çš„indexæœ‰è®Šå‰‡æ›´æ›ä½ç½®
 			if( i != m ) {
 				temp = arr[i];
 				arr[i] = arr[m];
@@ -160,13 +160,16 @@ class Sort {
 		}
 		return arr ;
 	}
-	
-	//	´¡¤J±Æ§Çªk
-	int[] InsertSort( int[] arr) {
+}
+
+class InsertSort implements Sort {
+	//	æ’å…¥æ’åºæ³•
+	// int[] InsertSort( int[] arr) {
+	public int[] sort( int[] arr) {
 		int temp;
 		for (int i = 1 ; i < arr.length ; i++) {
 			temp = arr[i];
-			
+
 			int j = i - 1;
 			while( j >= 0 && temp < arr[ j ]) {
 				arr[ j + 1 ] = arr[ j ];
@@ -179,6 +182,8 @@ class Sort {
 }
 
 /*
-* °İÃD¤@¡Astatic¦bclass¤º¥i¥H¬Ù²¤¡H
-* °İÃD¤G¡AnsTest©MmsTest¤º¦³¤Ó¦h­«½Æªºµ{¦¡½X¡A¤£ª¾¦³µL¤èªkºëÂ²
+* å•é¡Œä¸€ï¼Œstaticåœ¨classå…§å¯ä»¥çœç•¥ï¼Ÿ
+  é€™å€‹çœ‹ä¸å¤ªæ‡‚ @@?
+* å•é¡ŒäºŒï¼ŒnsTestå’ŒmsTestå…§æœ‰å¤ªå¤šé‡è¤‡çš„ç¨‹å¼ç¢¼ï¼Œä¸çŸ¥æœ‰ç„¡æ–¹æ³•ç²¾ç°¡
+  å—¯...æˆ‘è¦ºå¾—ç°¡å–®çš„å°ç¨‹å¼æ˜¯é‚„å¥½ XD|||, å¦‚æœè¦é‡è¤‡ä½¿ç”¨ç®—æ™‚é–“çš„é‚è¼¯çš„è©±, æˆ‘æƒ³åˆ°çš„ä¸€å€‹æ–¹æ³•æ˜¯ç”¨å¤šå‹è™•ç†
 * */
