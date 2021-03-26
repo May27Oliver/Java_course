@@ -47,12 +47,6 @@ class TestTime{
         System.out.printf("%10s", "單位（ns）\n");
         System.out.printf("%10s%20s%20s%20s%20s\n", "Size", "Bubble sort", "Selection sort", "Insertion sort", "Arrays.sort");
 
-        // for (int i = 0; i < a.length ; i++) {
-        // 	int[] arr = new GenerateArray().arrayUWant(a[i]);
-        // 	nsTest(arr);
-        // }
-
-        // 理由同 beginMsTest
         GenerateArray generateArray = new GenerateArray();
         for (int i = 0; i < a.length ; i++) {
             int[] arr = generateArray.arrayUWant(a[i]);
@@ -119,8 +113,6 @@ class SelectSort implements Sort {
     //	選擇排序法
     // int[] SelectSort( int[] arr) {
     public int[] sort( int[] arr) {
-        // min 沒用到?
-        // int min;
         for( int i = 0; i < arr.length ; i++) {
             int m = i;//假設最小值索引是i
             int temp;
